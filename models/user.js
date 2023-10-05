@@ -62,6 +62,7 @@ userSchema.pre('save', async function (next) {
     const salt = bcrypt.genSaltSync(10)
     this.password = await bcrypt.hash(this.password, salt)
 })
+
 userSchema.methods = {
     isCorrectPassword: async function (password) {
         return await bcrypt.compare(password, this.password)

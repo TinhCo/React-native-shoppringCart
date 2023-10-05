@@ -25,7 +25,7 @@ const register = asyncHandler(async (req, res) => {
     }
 })
 // Refresh token => Cấp mới access token
-// Access token => Xác thực người dùng, quân quyên người dùng
+// Access token => Xác thực người dùng, phân quyên người dùng
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body
     if (!email || !password)
@@ -76,7 +76,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
         newAccessToken: response ? generateAccessToken(response._id, response.role) : 'Refresh token not matched'
     })
 })
-
 const logout = asyncHandler(async (req, res) => {
     const cookie = req.cookies
     if (!cookie || !cookie.refreshToken) throw new Error('No refresh token in cookies')
@@ -90,7 +89,7 @@ const logout = asyncHandler(async (req, res) => {
     return res.status(200).json({
         success: true,
         mes: 'Logout is done'
-    })
+    })  
 })
 // Client gửi email
 // Server check email có hợp lệ hay không => Gửi mail + kèm theo link (password change token)
@@ -107,10 +106,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
     const resetToken = user.createPasswordChangedToken()
     await user.save()
 
-    const html = `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ. <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>`
-
+    const html = `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ.
+     <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>`
     const data = {
-        email,
+        email,  
         html
     }
     const rs = await sendMail(data)
@@ -126,7 +125,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     const user = await User.findOne({ passwordResetToken, passwordResetExpires: { $gt: Date.now() } })
     if (!user) throw new Error('Invalid reset token')
     user.password = password
-    user.passwordResetToken = undefined
+    user.passwordResetToken = undefined 
     user.passwordChangedAt = Date.now()
     user.passwordResetExpires = undefined
     await user.save()
@@ -169,7 +168,7 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
     return res.status(200).json({
         success: response ? true : false,
         updatedUser: response ? response : 'Some thing went wrong'
-    })
+    })  
 })
 module.exports = {
     register,
