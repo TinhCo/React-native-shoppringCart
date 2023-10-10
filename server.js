@@ -1,5 +1,6 @@
 const express = require('express')
-require('dotenv').config()
+require('dotenv').config();
+
 const dbConnect = require('./config/dbconnect')
 const initRoutes = require('./routes')
 const cookieParser = require('cookie-parser')
@@ -16,4 +17,3 @@ initRoutes(app)
 app.listen(port, () => {
     console.log('Server running on the port: ' + port);
 })
-//facebook
