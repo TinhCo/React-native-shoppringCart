@@ -1,6 +1,6 @@
 # PHIẾU ĐĂNG KÝ
 Thông tin sinh viên: Phùng Ngọc Toàn    2121110035
-Thông tin đề tài: Shop bán đồ Nữ
+Thông tin đề tài: E-Commerce Project
 Công nghệ: JavaScript
 Kế hoạch: 
 Tuần 1: Ngày bắt đầu ngày 05/09 kết thúc 12/09 (push) - Cài đặt JavaScript và thiết kế database.
